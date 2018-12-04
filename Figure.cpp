@@ -4,7 +4,7 @@ void Figure::realloc() {
     this->shapes++;
     auto tmp = new std::string*[this->shapes]();
 
-    for (int i = 0; i < this->shapes - 1; i++) {
+    for (size_t i = 0; i < this->shapes - 1; i++) {
         tmp[i] = this->ppShapes[i];
     }
     
@@ -16,7 +16,7 @@ void Figure::addShape(std::string* s) {
     realloc();
 
     ppShapes[this->shapes - 1] = s;
-    for (int i = 0; i < this->shapes; i++) {
+    for (size_t i = 0; i < this->shapes; i++) {
         std::cout << "len: " << this->ppShapes[i]->size() << '\n';
     }
 }
