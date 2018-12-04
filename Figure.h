@@ -2,17 +2,18 @@
 #define FIGURE_H
 #include <string>
 #include <iostream>
+#include "shape.h"
 
 class Figure {
  private:
-     std::string** ppShapes;    /*  placeholder for Shapes obj */
-     unsigned int shapes;
+     Shape** ppShapes;
+     unsigned int nShapes;
      void realloc();
 
  public:
-     Figure() : ppShapes{nullptr}, shapes{0} {}
+     Figure() : ppShapes{nullptr}, nShapes{0} {}
      ~Figure();
-     void addShape(std::string* s);
+     void addShape(Shape* const s);
      std::string getBoundingBox() const;
 };
 
