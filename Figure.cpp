@@ -1,10 +1,9 @@
 #include "Figure.h"
 
 void Figure::realloc() {
-    this->shapes++;
-    auto tmp = new std::string*[this->shapes]();
+    auto tmp = new Shape*[this->nShapes](); // zero init
 
-    for (size_t i = 0; i < this->shapes - 1; i++) {
+    for (size_t i = 0; i < (this->nShapes - 1); i++) {
         tmp[i] = this->ppShapes[i];
     }
     
@@ -12,24 +11,36 @@ void Figure::realloc() {
     this->ppShapes = tmp;
 }
 
-void Figure::addShape(std::string* s) {
+void Figure::addShape(Shape* const s) {
+    this->nShapes++;
     realloc();
+    ppShapes[this->nShapes - 1] = s;
+}
 
-    ppShapes[this->shapes - 1] = s;
-    for (size_t i = 0; i < this->shapes; i++) {
-        std::cout << "len: " << this->ppShapes[i]->size() << '\n';
+std::string Figure::getBoundingBox() const {
+    double minX{this->ppShapes[0]->getXCoords()},
+          minY{this->ppShapes[0]->getYCoords()},
+          maxX{minX},
+          maxY{minY};
+
+    for (size_t i = 1; i < this->nShapes; i++) {
+        auto x = this->ppShapes[i]->getXCoords();
+        auto y = this->ppShapes[i]->getYCoords();
+
+        if (x > maxX)
+            maxX = x;
+        if (x < minX)
+            minX = x;
+        if (y > maxY)
+            maxY = y;
+        if (y < minY)
+            minY = y;
     }
-}
 
 
-int main() {
-    Figure figure;
-    std::string foo = ("foo");
-
-    figure.addShape(&foo);
+    // TODO: calculate bbox
 
 }
-
 
 Figure::~Figure() {
     delete[] this->ppShapes;
