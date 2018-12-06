@@ -11,7 +11,7 @@ void Figure::realloc() {
     this->ppShapes = tmp;
 }
 
-void Figure::addShape(Shape* const s) {
+void Figure::addShape(Shape& const s) {
     this->nShapes++;
     realloc();
     ppShapes[this->nShapes - 1] = s;
