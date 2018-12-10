@@ -13,7 +13,7 @@ class Figure {
  public:
      Figure() : ppShapes{nullptr}, nShapes{0} {}
      ~Figure();
-     void addShape(Shape* const s);
+     void addShape(Shape& const s);
      std::string getBoundingBox() const;
 };
 
