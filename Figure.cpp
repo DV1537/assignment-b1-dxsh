@@ -1,21 +1,25 @@
 #include "Figure.h"
 
-void Figure::realloc() {
-    auto tmp = new Shape*[this->nShapes](); // zero init
-
-    for (size_t i = 0; i < (this->nShapes - 1); i++) {
-        tmp[i] = this->ppShapes[i];
-    }
-    
-    delete[] this->ppShapes;
-    this->ppShapes = tmp;
-}
-
-void Figure::addShape(Shape& const s) {
-    this->nShapes++;
-    realloc();
-    ppShapes[this->nShapes - 1] = s;
-}
+void Figure::realloc() {                                                          
+    auto tmp = new Shape*[this->capacity](); // zero init                         
+                                                                                  
+    for (size_t i = 0; i < this->nShapes; i++) {                                  
+        tmp[i] = this->ppShapes[i];                                               
+    }                                                                             
+                                                                                  
+    delete[] this->ppShapes;                                                      
+    this->ppShapes = tmp;                                                         
+}                                                                                 
+                                                                                  
+void Figure::addShape(Shape* const s) {                                           
+    if (this->nShapes >= this->capacity) {                                        
+        this->capacity *= 2;                                                      
+        realloc();                                                                
+    }                                                                             
+                                                                                  
+    this->nShapes++;                                                                                                                                                                                                                          
+    this->ppShapes[this->nShapes - 1] = s;                                        
+}            
 
 std::string Figure::getBoundingBox() const {
     double minX{this->ppShapes[0]->getXCoords()},

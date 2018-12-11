@@ -6,12 +6,14 @@
 
 class Figure {
  private:
-     Shape** ppShapes;
+     unsigned int capacity;
      unsigned int nShapes;
+     Shape** ppShapes = new Shape*[capcity];
+
      void realloc();
 
  public:
-     Figure() : ppShapes{nullptr}, nShapes{0} {}
+     Figure() : capacity{10}, nShapes{0} {}
      ~Figure();
      void addShape(Shape& const s);
      std::string getBoundingBox() const;
