@@ -22,14 +22,14 @@ void Figure::addShape(Shape* const s) {
 }            
 
 std::string Figure::getBoundingBox() const {
-    double minX{this->ppShapes[0]->getXCoords()},
-          minY{this->ppShapes[0]->getYCoords()},
-          maxX{minX},
-          maxY{minY};
+    double minX = this->ppShapes[0]->getXcoords();
+    double minY =  this->ppShapes[0]->getYcoords();
+    double maxX = minX;
+    double maxY = minY;
 
     for (size_t i = 1; i < this->nShapes; i++) {
-        auto x = this->ppShapes[i]->getXCoords();
-        auto y = this->ppShapes[i]->getYCoords();
+        auto x = this->ppShapes[i]->getXcoords();
+        auto y = this->ppShapes[i]->getYcoords();
 
         if (x > maxX)
             maxX = x;
@@ -41,8 +41,13 @@ std::string Figure::getBoundingBox() const {
             minY = y;
     }
 
+    auto topLeft = minX + minY;
+    auto bttmRight = maxX + maxY;
 
-    // TODO: calculate bbox
+    std::string str = "Top left corner: " + std::to_string(topLeft)
+        + "\nBottom right corner:  " + std::to_string(bttmRight);
+
+    return str;
 
 }
 
